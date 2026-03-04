@@ -34,7 +34,7 @@ export default function BlogListClient({
   const [highlightPost, ...otherPosts] = posts;
 
   return (
-    <div ref={containerRef} className="space-y-12">
+    <div ref={containerRef} className="space-y-8">
       {/* Highlight Post */}
       {highlightPost && (
         <div className="blog-card group relative overflow-hidden rounded-3xl bg-card border shadow-sm hover:shadow-xl transition-all duration-500">
