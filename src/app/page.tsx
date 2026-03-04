@@ -497,7 +497,7 @@ export default function Home() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="w-fit border-background text-background hover:bg-background hover:text-foreground rounded-full px-8"
+                    className="w-fit border-none cursor-pointer bg-foreground text-background hover:bg-background hover:text-foreground rounded-full px-8"
                   >
                     View Case Study
                   </Button>
@@ -558,7 +558,13 @@ export default function Home() {
           </h3>
         </div>
         <div className="">
-          <Stepper activeStep={activeStep} orientation="vertical">
+          <Stepper
+            activeStep={activeStep}
+            orientation="vertical"
+            sx={{
+              "& .MuiStepIcon-root": { color: "#000" },
+            }}
+          >
             {timeline.map((item, index) => (
               <Step
                 key={index}
@@ -569,7 +575,7 @@ export default function Home() {
                   onClick={() => setActiveStep(index)}
                   className="cursor-pointer group py-4!"
                   optional={
-                    <span className="text-primary font-mono text-sm font-semibold tracking-wider bg-primary/10 px-3 py-1 rounded-full inline-block mt-2">
+                    <span className="text-primary font-mono text-sm font-semibold tracking-wider bg-background border border-foreground/20 px-3 py-1 rounded-full inline-block mt-2">
                       {item.year}
                     </span>
                   }
