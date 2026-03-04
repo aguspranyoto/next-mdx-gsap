@@ -10,12 +10,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ArrowRight,
   Code2,
@@ -26,6 +21,7 @@ import {
   Linkedin,
   Mail,
 } from "lucide-react";
+import Image from "next/image";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -55,7 +51,7 @@ export default function Home() {
         )
         .from(
           ".hero-visual",
-          { scale: 0.8, opacity: 0, duration: 1.2, ease: "back.out(1.2)" },
+          { scale: 0.8, opacity: 0, duration: 1.2, ease: "back.out(0.2)" },
           "-=1",
         );
 
@@ -308,14 +304,14 @@ export default function Home() {
       year: "Jul 2022 - Dec 2022",
       role: "Front End Engineering — Intern",
       company: "PT Surya Citra Media",
-      stacks: ["Vue.js 3", "Laravel 9"],
+      stacks: ["Vue.js 3", "Vuexy", "Laravel 9"],
       desc: "Contributed to the SCM Hub project: installed VPN tools to access repos, cloned and redesigned the project, and developed frontend views using Vue.js 3 and Laravel 9.",
     },
     {
       year: "Apr 2022 - Jun 2022",
       role: "Web Developer — Intern",
       company: "PT Sugity Creatives",
-      stacks: ["CodeIgniter 3", "XAMPP"],
+      stacks: ["CodeIgniter 3", "Bootstrap", "XAMPP"],
       desc: "Designed and tested a Truck Arrival Monitoring website using CodeIgniter 3, installed XAMPP for local dev, and created QR codes for driver scanning workflows.",
     },
   ];
@@ -334,11 +330,13 @@ export default function Home() {
               ✨ Available for new opportunities
             </div>
             <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[1.05]">
-              <span className="hero-title block">Creative</span>
+              <span className="hero-title block">Frontend</span>
               <span className="hero-title block text-transparent bg-clip-text bg-gradient-to-r from-primary via-indigo-500 to-purple-600">
                 Developer
               </span>
-              <span className="hero-title block">& Designer.</span>
+              <span className="hero-title block text-4xl tracking-normal">
+                - Agus Pranyoto
+              </span>
             </h1>
             <p className="hero-sub mt-6 text-xl text-muted-foreground max-w-2xl leading-relaxed">
               I bridge the gap between design and engineering, creating highly
@@ -369,22 +367,61 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="hero-visual lg:w-[500px] aspect-square relative hidden md:block mt-12 lg:mt-0">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-purple-500/30 rounded-[3rem] blur-3xl animate-pulse"></div>
-            <div className="relative h-full w-full bg-card border shadow-2xl rounded-[2.5rem] p-8 flex flex-col backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80">
-              <div className="flex gap-2 mb-6">
-                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+          <div className="hero-visual bento-item lg:w-[420px] w-[320px] relative hidden md:block mt-12 lg:mt-0">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-purple-500/30 rounded-[1.5rem] blur-3xl animate-pulse"></div>
+            <div className="relative h-full w-full bg-card border shadow-2xl rounded-2xl p-6 flex flex-col backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80 overflow-hidden">
+              <div className="flex items-center gap-4">
+                <Image
+                  src="/agus-alibaba-cloud.jpg"
+                  width={320}
+                  height={320}
+                  alt="Avatar"
+                  className="w-20 h-20 rounded-full border-4 border-white shadow-md object-cover"
+                />
+                <div>
+                  <h3 className="text-lg font-bold">Agus Pranyoto</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Frontend Developer
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    PT Indocyber Global Teknologi
+                  </p>
+                </div>
               </div>
-              <div className="space-y-4 flex-1 mt-4">
-                <div className="h-4 bg-muted rounded-full w-3/4"></div>
-                <div className="h-4 bg-muted rounded-full w-1/2"></div>
-                <div className="h-4 bg-muted rounded-full w-5/6"></div>
-                <div className="h-4 bg-muted rounded-full w-2/3"></div>
+
+              <div className="mt-4 mb-16 flex-1">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  I craft performant, accessible, and delightful web experiences
+                  with modern stacks — from pixel-perfect UI to motion-driven
+                  interactions.
+                </p>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-xs">
+                    Next.js
+                  </span>
+                  <span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-xs">
+                    TypeScript
+                  </span>
+                  <span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-xs">
+                    GSAP
+                  </span>
+                </div>
               </div>
-              <div className="mt-auto h-32 border border-dashed border-primary/30 rounded-2xl flex items-center justify-center text-primary/50 font-mono text-sm bg-primary/5">
-                {"<InteractiveElement />"}
+
+              <div className="mt-4 flex items-center justify-between">
+                <div className="text-xs text-muted-foreground">
+                  ID: AGS-2026
+                </div>
+                <div className="w-16 h-16 bg-white/5 rounded-md flex items-center justify-center">
+                  <a
+                    target="_blank"
+                    href="https://www.linkedin.com/in/aguspranyoto"
+                    className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
+                  >
+                    <Linkedin className="w-6 h-6" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>

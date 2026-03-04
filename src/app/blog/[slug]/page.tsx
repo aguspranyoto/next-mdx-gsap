@@ -19,10 +19,10 @@ export default async function BlogPostPage({
   }
 
   return (
-    <article className="container mx-auto px-4 py-16 max-w-3xl prose prose-neutral dark:prose-invert">
+    <article className="container mx-auto px-4 py-16 max-w-4xl prose prose-neutral dark:prose-invert">
       <Link
         href="/blog"
-        className="inline-flex items-center text-sm mb-8 no-underline text-muted-foreground hover:text-foreground"
+        className="inline-flex items-center text-sm mb-2 no-underline text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="mr-2 h-4 w-4" /> Back to Blog
       </Link>
