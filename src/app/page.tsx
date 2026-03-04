@@ -201,6 +201,7 @@ export default function Home() {
         duration: 0.8,
         stagger: 0.1,
       });
+
       // return cleanup for hover handlers
       return cleanupHover;
     },
@@ -562,8 +563,7 @@ export default function Home() {
             activeStep={activeStep}
             orientation="vertical"
             sx={{
-              "& .MuiStepIcon-root.Mui-active, & .MuiStepIcon-root.Mui-completed":
-                { color: "#000 !important" },
+              "& .MuiStepIcon-root": { color: "#000 !important" },
             }}
           >
             {timeline.map((item, index) => (
@@ -650,29 +650,36 @@ export default function Home() {
           <div className="footer-element flex justify-center gap-6 mb-16">
             <a
               href="mailto:agusprnyt@gmail.com"
-              className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
+              className=" p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
             >
               <Mail className="w-6 h-6" />
             </a>
             <a
               target="_blank"
               href="https://github.com/aguspranyoto"
-              className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
+              className=" p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
             >
               <Github className="w-6 h-6" />
             </a>
             <a
               target="_blank"
               href="https://www.linkedin.com/in/aguspranyoto"
-              className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
+              className=" p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
             >
               <Linkedin className="w-6 h-6" />
             </a>
           </div>
           <div className="footer-element text-sm text-muted-foreground flex flex-col md:flex-row items-center justify-between border-t border-border/50 pt-8">
             <p>
-              © {new Date().getFullYear()} Agus. All rights reserved. Crafted
-              with Next.js & GSAP.
+              © {new Date().getFullYear()}{" "}
+              <a
+                target="_blank"
+                href="https://www.linkedin.com/in/aguspranyoto"
+                className="text-transparent bg-clip-text bg-linear-to-r from-primary to-purple-600"
+              >
+                Agus Pranyoto
+              </a>
+              . All rights reserved. Crafted with Next.js & GSAP.
             </p>
             <div className="flex gap-6 mt-6 md:mt-0 font-medium">
               <Link
