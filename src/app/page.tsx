@@ -56,7 +56,7 @@ export default function Home() {
         );
 
       // Bento grid Animations
-      gsap.from(".bento-item", {
+      gsap.from(".bento-grid .bento-item", {
         scrollTrigger: {
           trigger: ".bento-grid",
           start: "top 80%",
@@ -323,7 +323,7 @@ export default function Home() {
     >
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden bg-dot-black/[0.2] dark:bg-dot-white/[0.2]">
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white mask-[radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
           <div className="flex-1 flex flex-col items-start text-left xl:pr-12">
             <div className="hero-badge inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-secondary text-secondary-foreground hover:bg-secondary/80 mb-6 border-primary/20 shadow-sm">
@@ -331,7 +331,7 @@ export default function Home() {
             </div>
             <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[1.05]">
               <span className="hero-title block">Frontend</span>
-              <span className="hero-title block text-transparent bg-clip-text bg-gradient-to-r from-primary via-indigo-500 to-purple-600">
+              <span className="hero-title block text-transparent bg-clip-text bg-linear-to-r from-primary via-indigo-500 to-purple-600">
                 Developer
               </span>
               <span className="hero-title block text-4xl tracking-normal">
@@ -361,14 +361,14 @@ export default function Home() {
                     variant="outline"
                     className="rounded-full h-14 px-8 text-base transition-all hover:bg-secondary"
                   >
-                    Let's Talk
+                    Contact Me
                   </Button>
                 </a>
               </div>
             </div>
           </div>
-          <div className="hero-visual bento-item lg:w-[420px] w-[320px] relative hidden md:block mt-12 lg:mt-0">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-purple-500/30 rounded-[1.5rem] blur-3xl animate-pulse"></div>
+          <div className="hero-visual bento-item lg:w-105 w-[320px] relative hidden md:block mt-12 lg:mt-0">
+            <div className="absolute inset-0 bg-linear-to-tr from-primary/30 to-purple-500/30 rounded-[1.5rem] blur-3xl animate-pulse"></div>
             <div className="relative h-full w-full bg-card border shadow-2xl rounded-2xl p-6 flex flex-col backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80 overflow-hidden">
               <div className="flex items-center gap-4">
                 <Image
@@ -476,9 +476,9 @@ export default function Home() {
               key={i}
               className="horizontal-panel w-screen h-screen flex items-center justify-center p-6 md:p-24 relative"
             >
-              <div className="w-full max-w-6xl aspect-[21/9] relative flex flex-col md:flex-row items-stretch border border-background/20 rounded-3xl overflow-hidden bg-background/5 backdrop-blur-md">
+              <div className="w-full max-w-6xl aspect-21/9 relative flex flex-col md:flex-row items-stretch border border-background/20 rounded-3xl overflow-hidden bg-background/5 backdrop-blur-md">
                 <div
-                  className={`w-full md:w-1/2 h-full bg-gradient-to-br transition-colors ${project.color} flex items-center justify-center p-12`}
+                  className={`w-full md:w-1/2 h-full bg-linear-to-br transition-colors ${project.color} flex items-center justify-center p-12`}
                 >
                   <span className="text-9xl font-black opacity-30 drop-shadow-xl">
                     {project.id}
@@ -523,7 +523,7 @@ export default function Home() {
               className="border border-background/20 rounded-3xl overflow-hidden bg-background/5"
             >
               <div
-                className={`w-full h-48 bg-gradient-to-br ${project.color} flex items-center justify-center`}
+                className={`w-full h-48 bg-linear-to-br ${project.color} flex items-center justify-center`}
               >
                 <span className="text-6xl font-black opacity-30 drop-shadow-xl">
                   {project.id}
@@ -567,7 +567,7 @@ export default function Home() {
               >
                 <StepLabel
                   onClick={() => setActiveStep(index)}
-                  className="cursor-pointer group !py-4"
+                  className="cursor-pointer group py-4!"
                   optional={
                     <span className="text-primary font-mono text-sm font-semibold tracking-wider bg-primary/10 px-3 py-1 rounded-full inline-block mt-2">
                       {item.year}
@@ -628,11 +628,11 @@ export default function Home() {
         id="contact"
         className="py-24 px-6 bg-card border-t text-center overflow-hidden relative"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-50"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-50"></div>
         <div className="max-w-4xl mx-auto relative z-10">
           <h2 className="footer-element text-5xl md:text-7xl font-black tracking-tighter mb-8">
             Let's build something{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-purple-600">
               extraordinary.
             </span>
           </h2>
