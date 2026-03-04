@@ -562,7 +562,8 @@ export default function Home() {
             activeStep={activeStep}
             orientation="vertical"
             sx={{
-              "& .MuiStepIcon-root": { color: "#000" },
+              "& .MuiStepIcon-root.Mui-active, & .MuiStepIcon-root.Mui-completed":
+                { color: "#000 !important" },
             }}
           >
             {timeline.map((item, index) => (

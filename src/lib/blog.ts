@@ -9,6 +9,8 @@ export type Post = {
   title: string;
   date: string;
   content: string;
+  excerpt?: string;
+  coverImage?: string;
 };
 
 export function getSortedPostsData(): Omit<Post, "content">[] {
@@ -20,10 +22,25 @@ export function getSortedPostsData(): Omit<Post, "content">[] {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const matterResult = matter(fileContents);
 
+    // Extract the first image from markdown content using regex
+    const imageMatch = matterResult.content.match(/!\[.*?\]\((.*?)\)/);
+    const coverImage = imageMatch ? imageMatch[1] : undefined;
+
+    // Create a plain text excerpt (strip simple markdown)
+    const rawContent = matterResult.content
+      .replace(/#+\s/g, "")
+      .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
+      .replace(/[*_~`>]/g, "")
+      .trim();
+    const excerpt =
+      rawContent.length > 150 ? rawContent.slice(0, 150) + "..." : rawContent;
+
     return {
       slug,
       title: matterResult.data.title || slug,
       date: matterResult.data.date || new Date().toISOString(),
+      excerpt,
+      coverImage,
     };
   });
 
@@ -54,6 +71,18 @@ export function savePost(data: Omit<Post, "slug">) {
     .toLowerCase()
     .replace(/\s+/g, "-")
     .replace(/[^\w-]/g, "");
+  const fullPath = path.join(postsDirectory, `${slug}.md`);
+
+  const fileContents = matter.stringify(data.content, {
+    title: data.title,
+    date: data.date,
+  });
+
+  fs.writeFileSync(fullPath, fileContents);
+  return slug;
+}
+
+export function updatePost(slug: string, data: Omit<Post, "slug">) {
   const fullPath = path.join(postsDirectory, `${slug}.md`);
 
   const fileContents = matter.stringify(data.content, {

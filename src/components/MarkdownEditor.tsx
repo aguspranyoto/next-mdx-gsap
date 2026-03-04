@@ -1,16 +1,30 @@
 "use client";
 import { useState, useTransition } from "react";
 import dynamic from "next/dynamic";
-import { createPostAction } from "@/app/actions";
+import { createPostAction, editPostAction } from "@/app/actions";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
-export default function CreatePostForm() {
-  const [content, setContent] = useState("**Hello world!!!**");
-  const [title, setTitle] = useState("");
+interface MarkdownEditorProps {
+  initialTitle?: string;
+  initialContent?: string;
+  isEdit?: boolean;
+  slug?: string;
+  date?: string;
+}
+
+export default function CreatePostForm({
+  initialTitle = "",
+  initialContent = "**Hello world!!!**",
+  isEdit = false,
+  slug = "",
+  date = "",
+}: MarkdownEditorProps) {
+  const [content, setContent] = useState(initialContent);
+  const [title, setTitle] = useState(initialTitle);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -21,9 +35,18 @@ export default function CreatePostForm() {
       formData.append("title", title);
       formData.append("content", content);
 
-      const result = await createPostAction(formData);
-      if (result.success) {
-        router.push(`/blog/${result.slug}`);
+      if (isEdit) {
+        formData.append("slug", slug);
+        formData.append("date", date);
+        const result = await editPostAction(formData);
+        if (result.success) {
+          router.push(`/blog/${result.slug}`);
+        }
+      } else {
+        const result = await createPostAction(formData);
+        if (result.success) {
+          router.push(`/blog/${result.slug}`);
+        }
       }
     });
   };
@@ -46,7 +69,7 @@ export default function CreatePostForm() {
       </div>
 
       <Button disabled={isPending} type="submit">
-        {isPending ? "Saving..." : "Publish Post"}
+        {isPending ? "Saving..." : isEdit ? "Update Post" : "Publish Post"}
       </Button>
     </form>
   );
