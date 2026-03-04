@@ -3,8 +3,12 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import StepContent from "@mui/material/StepContent";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,6 +35,7 @@ if (typeof window !== "undefined") {
 export default function Home() {
   const container = useRef<HTMLDivElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
+  const [activeStep, setActiveStep] = useState(0);
 
   useGSAP(
     () => {
@@ -167,22 +172,56 @@ export default function Home() {
 
   const timeline = [
     {
-      year: "2023 - Present",
-      role: "Senior Frontend Engineer",
-      company: "TechNova Inc.",
-      desc: "Leading the core UI team to build a next-gen dashboard accessed by millions.",
+      year: "Sept 2025 - Present",
+      role: "Frontend Developer — Contract",
+      company: "PT Indocyber Global Teknologi",
+      stacks: [
+        "Next.js",
+        "Material UI",
+        "TanStack Query",
+        "Zustand",
+        "React Hook Form",
+        "Zod",
+        "TypeScript",
+      ],
+      desc: "Project: Satu Wings (Wings Group). Contributed as a frontend developer using Next.js 15, Material UI, Zustand, TanStack Query, React Hook Form, Zod, and TypeScript within a multi-zone / micro-frontend architecture. Built reusable UI components, worked with CI/CD and Git-based workflows, and integrated REST APIs with backend teams.",
     },
     {
-      year: "2020 - 2023",
-      role: "Creative Developer",
-      company: "Studio Digital",
-      desc: "Built award-winning marketing sites focused on micro-interactions and performance.",
+      year: "Jun 2024 - Sept 2025",
+      role: "Frontend Developer — Full time",
+      company: "PT Global Indonesia Asia Sejahtera",
+      stacks: [
+        "Next.js",
+        "React Flow",
+        "NextAuth",
+        "TanStack Table",
+        "Prisma",
+        "MongoDB",
+        "Shadcn UI",
+        "Tailwind CSS",
+      ],
+      desc: "Built documentation and profile websites using Next.js 15, React Flow, NextAuth v5, TanStack Table, Prisma, MongoDB, Shadcn UI, and Tailwind CSS with role-based access control. Converted Figma designs to responsive UIs, implemented SPA/SSR patterns, improved production performance, and used Docker (Laradock), Ubuntu, Jira, and Git/GitLab workflows.",
     },
     {
-      year: "2018 - 2020",
-      role: "Web Developer",
-      company: "StartupX",
-      desc: "Full-stack development using MERN. Prototyped massive platforms from ground zero.",
+      year: "Jan 2024 - Apr 2024",
+      role: "Junior Frontend Engineer — Contract",
+      company: "PT Summit Global Teknologi",
+      stacks: ["Vue.js", "Nuxt.js", "SCSS", "Swiper.js", "ScrollMagic"],
+      desc: "Worked on responsive front-end projects using Vue.js/Nuxt and SCSS; converted Photoshop designs into HTML/SCSS, implemented animations with Swiper.js and ScrollMagic, and collaborated via Git for version control.",
+    },
+    {
+      year: "Jul 2022 - Dec 2022",
+      role: "Front End Engineering — Intern",
+      company: "PT Surya Citra Media",
+      stacks: ["Vue.js 3", "Laravel 9"],
+      desc: "Contributed to the SCM Hub project: installed VPN tools to access repos, cloned and redesigned the project, and developed frontend views using Vue.js 3 and Laravel 9.",
+    },
+    {
+      year: "Apr 2022 - Jun 2022",
+      role: "Web Developer — Intern",
+      company: "PT Sugity Creatives",
+      stacks: ["CodeIgniter 3", "XAMPP"],
+      desc: "Designed and tested a Truck Arrival Monitoring website using CodeIgniter 3, installed XAMPP for local dev, and created QR codes for driver scanning workflows.",
     },
   ];
 
@@ -377,8 +416,8 @@ export default function Home() {
       </section>
 
       {/* TIMELINE SECTION */}
-      <section className="py-32 px-6 max-w-4xl mx-auto border-l-2 border-primary/20 ml-6 md:mx-auto relative timeline-container">
-        <div className="mb-20 -ml-6 md:ml-0 md:text-center">
+      <section className="py-32 px-6 max-w-4xl mx-auto relative timeline-container">
+        <div className="mb-20 md:text-center">
           <h2 className="text-sm font-bold tracking-widest uppercase text-primary mb-3">
             My Journey
           </h2>
@@ -386,28 +425,69 @@ export default function Home() {
             Experience
           </h3>
         </div>
-        <div className="space-y-20">
-          {timeline.map((item, i) => (
-            <div key={i} className="timeline-item relative pl-8 md:pl-0 group">
-              <div className="absolute left-[-41px] md:left-[-11px] top-1.5 w-5 h-5 rounded-full bg-primary ring-4 ring-background group-hover:scale-125 transition-transform duration-300"></div>
-              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-3 md:gap-12">
-                <div className="md:w-1/4 md:text-right">
-                  <span className="text-primary font-mono text-sm font-semibold tracking-wider bg-primary/10 px-3 py-1 rounded-full md:bg-transparent md:px-0">
-                    {item.year}
-                  </span>
-                </div>
-                <div className="md:w-3/4 bg-card p-6 md:p-8 rounded-2xl border shadow-sm group-hover:shadow-md transition-shadow">
-                  <h4 className="text-2xl font-bold mb-1">{item.role}</h4>
-                  <h5 className="text-lg text-primary/80 mb-4 font-medium">
-                    {item.company}
-                  </h5>
-                  <p className="text-muted-foreground leading-relaxed text-lg">
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="">
+          <Stepper activeStep={activeStep} orientation="vertical">
+            {timeline.map((item, index) => (
+              <Step
+                key={index}
+                expanded={activeStep === index}
+                className="timeline-item"
+              >
+                <StepLabel
+                  onClick={() => setActiveStep(index)}
+                  className="cursor-pointer group !py-4"
+                  optional={
+                    <span className="text-primary font-mono text-sm font-semibold tracking-wider bg-primary/10 px-3 py-1 rounded-full inline-block mt-2">
+                      {item.year}
+                    </span>
+                  }
+                >
+                  <h4 className="text-2xl font-bold group-hover:text-primary transition-colors text-foreground">
+                    {item.role}
+                  </h4>
+                </StepLabel>
+                <StepContent>
+                  <div className="bg-card p-6 md:p-8 rounded-2xl border shadow-sm mt-4 mb-4">
+                    {item.stacks && item.stacks.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {item.stacks.map((s, si) => (
+                          <span
+                            key={si}
+                            className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-primary/10 text-primary"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <h5 className="text-lg text-primary/80 mb-4 font-medium">
+                      {item.company}
+                    </h5>
+                    <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                      {item.desc}
+                    </p>
+                    <div className="flex gap-4">
+                      {index < timeline.length - 1 && (
+                        <Button
+                          onClick={() => setActiveStep(index + 1)}
+                          className="rounded-full"
+                        >
+                          Next Expected
+                        </Button>
+                      )}
+                      <Button
+                        onClick={() => setActiveStep(0)}
+                        variant="outline"
+                        className="rounded-full"
+                      >
+                        Collapse
+                      </Button>
+                    </div>
+                  </div>
+                </StepContent>
+              </Step>
+            ))}
+          </Stepper>
         </div>
       </section>
 
@@ -430,25 +510,21 @@ export default function Home() {
           </p>
           <div className="footer-element flex justify-center gap-6 mb-16">
             <a
-              href="mailto:hello@agus.dev"
+              href="mailto:agusprnyt@gmail.com"
               className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
             >
               <Mail className="w-6 h-6" />
             </a>
             <a
-              href="https://github.com"
+              target="_blank"
+              href="https://github.com/aguspranyoto"
               className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
             >
               <Github className="w-6 h-6" />
             </a>
             <a
-              href="https://twitter.com"
-              className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
-            >
-              <Twitter className="w-6 h-6" />
-            </a>
-            <a
-              href="https://linkedin.com"
+              target="_blank"
+              href="https://www.linkedin.com/in/aguspranyoto"
               className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
             >
               <Linkedin className="w-6 h-6" />
