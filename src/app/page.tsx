@@ -1,0 +1,481 @@
+"use client";
+
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import {
+  ArrowRight,
+  Code2,
+  Layers,
+  Paintbrush,
+  Rocket,
+  Github,
+  Twitter,
+  Linkedin,
+  Mail,
+} from "lucide-react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
+
+export default function Home() {
+  const container = useRef<HTMLDivElement>(null);
+  const horizontalRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      // Hero Animations
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+      tl.from(".hero-badge", { y: -20, opacity: 0, duration: 0.6 })
+        .from(
+          ".hero-title",
+          { y: 50, opacity: 0, duration: 1, stagger: 0.1 },
+          "-=0.4",
+        )
+        .from(".hero-sub", { y: 30, opacity: 0, duration: 0.8 }, "-=0.6")
+        .from(
+          ".hero-cta",
+          { y: 20, opacity: 0, duration: 0.6, stagger: 0.1 },
+          "-=0.4",
+        )
+        .from(
+          ".hero-visual",
+          { scale: 0.8, opacity: 0, duration: 1.2, ease: "back.out(1.2)" },
+          "-=1",
+        );
+
+      // Bento grid Animations
+      gsap.from(".bento-item", {
+        scrollTrigger: {
+          trigger: ".bento-grid",
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+      });
+
+      // Horizontal scroll for projects
+      const sections = gsap.utils.toArray(".horizontal-panel");
+      if (horizontalRef.current && sections.length > 0) {
+        gsap.to(sections, {
+          xPercent: -100 * (sections.length - 1),
+          ease: "none",
+          scrollTrigger: {
+            trigger: horizontalRef.current,
+            pin: true,
+            scrub: 1,
+            snap: 1 / (sections.length - 1),
+            end: () => "+=" + horizontalRef.current!.offsetWidth * 2,
+          },
+        });
+      }
+
+      // Timeline Animations
+      gsap.from(".timeline-item", {
+        scrollTrigger: {
+          trigger: ".timeline-container",
+          start: "top 70%",
+        },
+        x: -50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+
+      gsap.from(".footer-element", {
+        scrollTrigger: {
+          trigger: "footer",
+          start: "top 90%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+      });
+    },
+    { scope: container },
+  );
+
+  const services = [
+    {
+      icon: <Code2 className="w-8 h-8 mb-4 text-blue-500" />,
+      title: "Web Development",
+      desc: "Building scalable, high-performance web applications using Next.js, React, and Node.",
+    },
+    {
+      icon: <Paintbrush className="w-8 h-8 mb-4 text-purple-500" />,
+      title: "UI/UX Architecture",
+      desc: "Crafting beautiful, accessible, and inclusive interfaces with Tailwind CSS and Shadcn.",
+    },
+    {
+      icon: <Rocket className="w-8 h-8 mb-4 text-orange-500" />,
+      title: "Creative Development",
+      desc: "Bringing sites to life with GSAP, Three.js, and complex interactive animations.",
+    },
+    {
+      icon: <Layers className="w-8 h-8 mb-4 text-green-500" />,
+      title: "Systems Design",
+      desc: "Creating robust design systems and component libraries for enterprise teams.",
+    },
+  ];
+
+  const projects = [
+    {
+      id: "01",
+      title: "E-Commerce Reimagined",
+      desc: "A headless shopify store with 3D product configurators.",
+      color: "from-blue-500/20 to-cyan-500/20",
+      tag: "Next.js + Three.js",
+    },
+    {
+      id: "02",
+      title: "Fintech Dashboard",
+      desc: "Real-time data visualization for a crypto trading platform.",
+      color: "from-purple-500/20 to-pink-500/20",
+      tag: "React + D3.js",
+    },
+    {
+      id: "03",
+      title: "Social Platform",
+      desc: "A community app with real-time chat and video rooms.",
+      color: "from-orange-500/20 to-yellow-500/20",
+      tag: "WebRTC + Socket.io",
+    },
+    {
+      id: "04",
+      title: "AI Image SaaS",
+      desc: "Web interface for an AI image generation model.",
+      color: "from-green-500/20 to-emerald-500/20",
+      tag: "OpenAI + Tailwind",
+    },
+  ];
+
+  const timeline = [
+    {
+      year: "2023 - Present",
+      role: "Senior Frontend Engineer",
+      company: "TechNova Inc.",
+      desc: "Leading the core UI team to build a next-gen dashboard accessed by millions.",
+    },
+    {
+      year: "2020 - 2023",
+      role: "Creative Developer",
+      company: "Studio Digital",
+      desc: "Built award-winning marketing sites focused on micro-interactions and performance.",
+    },
+    {
+      year: "2018 - 2020",
+      role: "Web Developer",
+      company: "StartupX",
+      desc: "Full-stack development using MERN. Prototyped massive platforms from ground zero.",
+    },
+  ];
+
+  return (
+    <div
+      ref={container}
+      className="min-h-screen bg-background text-foreground overflow-hidden"
+    >
+      {/* HERO SECTION */}
+      <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden bg-dot-black/[0.2] dark:bg-dot-white/[0.2]">
+        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex-1 flex flex-col items-start text-left xl:pr-12">
+            <div className="hero-badge inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-secondary text-secondary-foreground hover:bg-secondary/80 mb-6 border-primary/20 shadow-sm">
+              ✨ Available for new opportunities
+            </div>
+            <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[1.05]">
+              <span className="hero-title block">Creative</span>
+              <span className="hero-title block text-transparent bg-clip-text bg-gradient-to-r from-primary via-indigo-500 to-purple-600">
+                Developer
+              </span>
+              <span className="hero-title block">& Designer.</span>
+            </h1>
+            <p className="hero-sub mt-6 text-xl text-muted-foreground max-w-2xl leading-relaxed">
+              I bridge the gap between design and engineering, creating highly
+              interactive, accessible, and performant web experiences using
+              modern stacks.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <div className="hero-cta">
+                <Link href="/blog">
+                  <Button
+                    size="lg"
+                    className="rounded-full h-14 px-8 text-base shadow-xl shadow-primary/20 transition-all hover:scale-105"
+                  >
+                    Read My Thoughts <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
+              </div>
+              <div className="hero-cta">
+                <a href="#contact">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="rounded-full h-14 px-8 text-base transition-all hover:bg-secondary"
+                  >
+                    Let's Talk
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="hero-visual lg:w-[500px] aspect-square relative hidden md:block mt-12 lg:mt-0">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-purple-500/30 rounded-[3rem] blur-3xl animate-pulse"></div>
+            <div className="relative h-full w-full bg-card border shadow-2xl rounded-[2.5rem] p-8 flex flex-col backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80">
+              <div className="flex gap-2 mb-6">
+                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+              </div>
+              <div className="space-y-4 flex-1 mt-4">
+                <div className="h-4 bg-muted rounded-full w-3/4"></div>
+                <div className="h-4 bg-muted rounded-full w-1/2"></div>
+                <div className="h-4 bg-muted rounded-full w-5/6"></div>
+                <div className="h-4 bg-muted rounded-full w-2/3"></div>
+              </div>
+              <div className="mt-auto h-32 border border-dashed border-primary/30 rounded-2xl flex items-center justify-center text-primary/50 font-mono text-sm bg-primary/5">
+                {"<InteractiveElement />"}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BENTO GRID (SERVICES) */}
+      <section className="py-32 px-6 bg-slate-50 dark:bg-slate-900/40 relative">
+        <div className="max-w-7xl mx-auto bento-grid">
+          <div className="mb-16">
+            <h2 className="text-sm font-bold tracking-widest uppercase text-primary mb-3">
+              My Arsenal
+            </h2>
+            <h3 className="text-4xl md:text-5xl font-bold tracking-tight">
+              What I bring to the table
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((s, i) => (
+              <Card
+                key={i}
+                className={`bento-item border-none shadow-xl shadow-slate-200/50 dark:shadow-none ${i === 0 || i === 3 ? "lg:col-span-2" : ""} bg-white dark:bg-card hover:-translate-y-2 transition-transform duration-300`}
+              >
+                <CardHeader>
+                  {s.icon}
+                  <CardTitle className="text-2xl">{s.title}</CardTitle>
+                </CardHeader>
+                <div className="p-6 pt-0">
+                  <p className="text-muted-foreground">{s.desc}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HORIZONTAL SCROLL PROJECTS */}
+      <section
+        className="bg-foreground text-background overflow-hidden relative min-h-screen hidden lg:block"
+        ref={horizontalRef}
+      >
+        <div className="absolute top-12 left-12 z-10">
+          <h2 className="text-sm font-bold tracking-widest uppercase opacity-70 mb-2">
+            Selected Works
+          </h2>
+          <h3 className="text-4xl font-bold">Featured Projects</h3>
+        </div>
+
+        <div className="flex h-screen w-[400vw] items-center">
+          {projects.map((project, i) => (
+            <div
+              key={i}
+              className="horizontal-panel w-screen h-screen flex items-center justify-center p-6 md:p-24 relative"
+            >
+              <div className="w-full max-w-6xl aspect-[21/9] relative flex flex-col md:flex-row items-stretch border border-background/20 rounded-3xl overflow-hidden bg-background/5 backdrop-blur-md">
+                <div
+                  className={`w-full md:w-1/2 h-full bg-gradient-to-br transition-colors ${project.color} flex items-center justify-center p-12`}
+                >
+                  <span className="text-9xl font-black opacity-30 drop-shadow-xl">
+                    {project.id}
+                  </span>
+                </div>
+                <div className="w-full md:w-1/2 p-12 lg:p-16 flex flex-col justify-center">
+                  <div className="mb-4 inline-flex items-center rounded-full border border-background/30 px-3 py-1 text-xs font-semibold">
+                    {project.tag}
+                  </div>
+                  <h4 className="text-4xl md:text-5xl font-bold mb-6">
+                    {project.title}
+                  </h4>
+                  <p className="text-xl md:text-2xl opacity-70 mb-10 max-w-md leading-relaxed">
+                    {project.desc}
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-fit border-background text-background hover:bg-background hover:text-foreground rounded-full px-8"
+                  >
+                    View Case Study
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* MOBILE FALLBACK FOR PROJECTS */}
+      <section className="py-24 px-6 bg-foreground text-background lg:hidden">
+        <div className="mb-12">
+          <h2 className="text-sm font-bold tracking-widest uppercase opacity-70 mb-2">
+            Selected Works
+          </h2>
+          <h3 className="text-4xl font-bold">Featured Projects</h3>
+        </div>
+        <div className="grid gap-8">
+          {projects.map((project, i) => (
+            <div
+              key={i}
+              className="border border-background/20 rounded-3xl overflow-hidden bg-background/5"
+            >
+              <div
+                className={`w-full h-48 bg-gradient-to-br ${project.color} flex items-center justify-center`}
+              >
+                <span className="text-6xl font-black opacity-30 drop-shadow-xl">
+                  {project.id}
+                </span>
+              </div>
+              <div className="p-8">
+                <div className="mb-3 inline-flex items-center rounded-full border border-background/30 px-3 py-1 text-xs font-semibold">
+                  {project.tag}
+                </div>
+                <h4 className="text-3xl font-bold mb-4">{project.title}</h4>
+                <p className="text-lg opacity-80 mb-6">{project.desc}</p>
+                <Button
+                  variant="outline"
+                  className="w-full border-background text-background hover:bg-background hover:text-foreground rounded-full"
+                >
+                  View Case Study
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* TIMELINE SECTION */}
+      <section className="py-32 px-6 max-w-4xl mx-auto border-l-2 border-primary/20 ml-6 md:mx-auto relative timeline-container">
+        <div className="mb-20 -ml-6 md:ml-0 md:text-center">
+          <h2 className="text-sm font-bold tracking-widest uppercase text-primary mb-3">
+            My Journey
+          </h2>
+          <h3 className="text-4xl md:text-5xl font-bold tracking-tight">
+            Experience
+          </h3>
+        </div>
+        <div className="space-y-20">
+          {timeline.map((item, i) => (
+            <div key={i} className="timeline-item relative pl-8 md:pl-0 group">
+              <div className="absolute left-[-41px] md:left-[-11px] top-1.5 w-5 h-5 rounded-full bg-primary ring-4 ring-background group-hover:scale-125 transition-transform duration-300"></div>
+              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-3 md:gap-12">
+                <div className="md:w-1/4 md:text-right">
+                  <span className="text-primary font-mono text-sm font-semibold tracking-wider bg-primary/10 px-3 py-1 rounded-full md:bg-transparent md:px-0">
+                    {item.year}
+                  </span>
+                </div>
+                <div className="md:w-3/4 bg-card p-6 md:p-8 rounded-2xl border shadow-sm group-hover:shadow-md transition-shadow">
+                  <h4 className="text-2xl font-bold mb-1">{item.role}</h4>
+                  <h5 className="text-lg text-primary/80 mb-4 font-medium">
+                    {item.company}
+                  </h5>
+                  <p className="text-muted-foreground leading-relaxed text-lg">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer
+        id="contact"
+        className="py-24 px-6 bg-card border-t text-center overflow-hidden relative"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-50"></div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <h2 className="footer-element text-5xl md:text-7xl font-black tracking-tighter mb-8">
+            Let's build something{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">
+              extraordinary.
+            </span>
+          </h2>
+          <p className="footer-element text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+            I'm currently available for freelance projects and open to full-time
+            opportunities. Drop me a line if you want to collaborate!
+          </p>
+          <div className="footer-element flex justify-center gap-6 mb-16">
+            <a
+              href="mailto:hello@agus.dev"
+              className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
+            >
+              <Mail className="w-6 h-6" />
+            </a>
+            <a
+              href="https://github.com"
+              className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
+            >
+              <Github className="w-6 h-6" />
+            </a>
+            <a
+              href="https://twitter.com"
+              className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
+            >
+              <Twitter className="w-6 h-6" />
+            </a>
+            <a
+              href="https://linkedin.com"
+              className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110"
+            >
+              <Linkedin className="w-6 h-6" />
+            </a>
+          </div>
+          <div className="footer-element text-sm text-muted-foreground flex flex-col md:flex-row items-center justify-between border-t border-border/50 pt-8">
+            <p>
+              © {new Date().getFullYear()} Agus. All rights reserved. Crafted
+              with Next.js & GSAP.
+            </p>
+            <div className="flex gap-6 mt-6 md:mt-0 font-medium">
+              <Link
+                href="/blog"
+                className="hover:text-primary transition-colors"
+              >
+                Read Blog
+              </Link>
+              <Link
+                href="/blog/create"
+                className="hover:text-primary transition-colors"
+              >
+                Author Portal
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
