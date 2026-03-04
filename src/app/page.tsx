@@ -23,7 +23,6 @@ import {
   Paintbrush,
   Rocket,
   Github,
-  Twitter,
   Linkedin,
   Mail,
 } from "lucide-react";
@@ -73,6 +72,100 @@ export default function Home() {
         ease: "power3.out",
       });
 
+      // Bento hover interactions (enhanced below)
+      // collect elements
+      const bentoEls = gsap.utils.toArray<HTMLElement>(".bento-item");
+      // Enhanced Bento hover interactions using GSAP timelines and quickSetter
+      const hoverHandles: Array<{
+        el: HTMLElement;
+        enter: (e?: Event) => void;
+        leave: (e?: Event) => void;
+        move: (e: MouseEvent) => void;
+        tl: gsap.core.Timeline;
+      }> = [];
+
+      bentoEls.forEach((el) => {
+        el.style.willChange = "transform";
+        el.style.transformStyle = "preserve-3d";
+
+        // ensure parent has perspective for 3D tilt
+        const parent = el.parentElement as HTMLElement | null;
+        if (parent && !parent.style.perspective)
+          parent.style.perspective = "1200px";
+
+        // timeline that handles entrance/exit (scale, lift, shadow)
+        const tl = gsap.timeline({ paused: true });
+        tl.to(
+          el,
+          {
+            y: -12,
+            scale: 1.035,
+            duration: 0.4,
+            ease: "power3.out",
+            boxShadow: "0 20px 40px rgba(2,6,23,0.12)",
+            transformOrigin: "center center",
+          },
+          0,
+        );
+
+        // quickSetters for performant mouse-follow tilt
+        const setRotX = gsap.quickSetter(el, "rotationX", "deg");
+        const setRotY = gsap.quickSetter(el, "rotationY", "deg");
+
+        const onEnter = () => tl.play();
+        const onLeave = () => {
+          tl.reverse();
+          // gently reset rotations
+          gsap.to(
+            {},
+            {
+              duration: 0.45,
+              onUpdate: () => {
+                setRotX(0);
+                setRotY(0);
+              },
+            },
+          );
+        };
+
+        const onMove = (ev: MouseEvent) => {
+          const r = el.getBoundingClientRect();
+          const relX = (ev.clientX - (r.left + r.width / 2)) / r.width; // -0.5..0.5
+          const relY = (ev.clientY - (r.top + r.height / 2)) / r.height; // -0.5..0.5
+          const rotY = relX * 12; // rotate around Y
+          const rotX = -relY * 9; // rotate around X
+          setRotX(rotX);
+          setRotY(rotY);
+        };
+
+        el.addEventListener("mouseenter", onEnter);
+        el.addEventListener("mouseleave", onLeave);
+        el.addEventListener("mousemove", onMove);
+
+        hoverHandles.push({
+          el,
+          enter: onEnter,
+          leave: onLeave,
+          move: onMove,
+          tl,
+        });
+      });
+
+      // cleanup on unmount (deferred return)
+      const cleanupHover = () => {
+        hoverHandles.forEach(({ el, enter, leave, move, tl }) => {
+          el.removeEventListener("mouseenter", enter);
+          el.removeEventListener("mouseleave", leave);
+          el.removeEventListener("mousemove", move);
+          tl.kill();
+          el.style.willChange = "";
+          el.style.transformStyle = "";
+          const parent = el.parentElement as HTMLElement | null;
+          if (parent && parent.style.perspective === "1200px")
+            parent.style.perspective = "";
+        });
+      };
+
       // Horizontal scroll for projects
       const sections = gsap.utils.toArray(".horizontal-panel");
       if (horizontalRef.current && sections.length > 0) {
@@ -112,6 +205,8 @@ export default function Home() {
         duration: 0.8,
         stagger: 0.1,
       });
+      // return cleanup for hover handlers
+      return cleanupHover;
     },
     { scope: container },
   );
@@ -301,7 +396,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto bento-grid">
           <div className="mb-16">
             <h2 className="text-sm font-bold tracking-widest uppercase text-primary mb-3">
-              My Arsenal
+              My Expertise
             </h2>
             <h3 className="text-4xl md:text-5xl font-bold tracking-tight">
               What I bring to the table
@@ -311,7 +406,7 @@ export default function Home() {
             {services.map((s, i) => (
               <Card
                 key={i}
-                className={`bento-item border-none shadow-xl shadow-slate-200/50 dark:shadow-none ${i === 0 || i === 3 ? "lg:col-span-2" : ""} bg-white dark:bg-card hover:-translate-y-2 transition-transform duration-300`}
+                className={`bento-item border-none shadow-xl shadow-slate-200/50 dark:shadow-none lg:col-span-2 bg-white dark:bg-card`}
               >
                 <CardHeader>
                   {s.icon}
