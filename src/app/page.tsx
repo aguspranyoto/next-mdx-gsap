@@ -348,7 +348,7 @@ export default function Home() {
                 <Link href="/blog">
                   <Button
                     size="lg"
-                    className="rounded-full h-14 px-8 text-base shadow-xl shadow-primary/20 transition-all hover:scale-105"
+                    className="rounded-full cursor-pointer h-14 px-8 text-base shadow-xl shadow-primary/20 transition-all hover:scale-105"
                   >
                     Read My Thoughts <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
@@ -359,7 +359,7 @@ export default function Home() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="rounded-full h-14 px-8 text-base transition-all hover:bg-secondary"
+                    className="rounded-full cursor-pointer h-14 px-8 text-base transition-all hover:bg-secondary"
                   >
                     Contact Me
                   </Button>
