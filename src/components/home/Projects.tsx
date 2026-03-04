@@ -27,7 +27,7 @@ export default function Projects({
               key={i}
               className="horizontal-panel w-screen h-screen flex items-center justify-center p-6 md:p-24 relative"
             >
-              <div className="w-full max-w-6xl aspect-21/9 relative flex flex-col md:flex-row items-stretch border border-background/20 rounded-3xl overflow-hidden bg-background/5 backdrop-blur-md">
+              <div className="w-full max-w-4xl aspect-21/9 relative flex flex-col md:flex-row items-stretch border border-background/20 rounded-3xl overflow-hidden bg-background/5 backdrop-blur-md">
                 <div
                   className={`w-full md:w-1/2 h-full bg-linear-to-br transition-colors ${project.color} flex items-center justify-center p-12`}
                 >

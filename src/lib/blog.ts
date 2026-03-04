@@ -26,12 +26,16 @@ export function getSortedPostsData(): Omit<Post, "content">[] {
     const imageMatch = matterResult.content.match(/!\[.*?\]\((.*?)\)/);
     const coverImage = imageMatch ? imageMatch[1] : undefined;
 
-    // Create a plain text excerpt (strip simple markdown)
-    const rawContent = matterResult.content
+    // Create a plain text excerpt (strip images, simple markdown and URLs)
+    const cleaned = matterResult.content
+      .replace(/!\[.*?\]\([^\)]+\)/g, "") // remove image markdown
+      .replace(/<img[^>]*>/g, "") // remove HTML img tags
       .replace(/#+\s/g, "")
       .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
       .replace(/[*_~`>]/g, "")
+      .replace(/https?:\/\/\S+/g, "") // remove bare URLs
       .trim();
+    const rawContent = cleaned;
     const excerpt =
       rawContent.length > 150 ? rawContent.slice(0, 150) + "..." : rawContent;
 
