@@ -91,6 +91,9 @@ export default function Hero() {
                 <span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-xs">
                   Flutter
                 </span>
+                <span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-xs">
+                  GSAP
+                </span>
               </div>
             </div>
 
