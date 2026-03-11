@@ -86,10 +86,10 @@ export default function Hero() {
                   Next.js
                 </span>
                 <span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-xs">
-                  TypeScript
+                  Nuxt.js
                 </span>
                 <span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-xs">
-                  GSAP
+                  Flutter
                 </span>
               </div>
             </div>
