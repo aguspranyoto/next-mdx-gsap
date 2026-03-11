@@ -1,11 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Github, Linkedin } from "lucide-react";
+import { Mail, Github, Linkedin, LogOut } from "lucide-react";
+import { useSession, signOut } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 export default function FooterSection() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const container = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.from(".footer-element", {
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top 90%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+      });
+    },
+    { scope: container },
+  );
+
   return (
     <footer
+      ref={container}
       id="contact"
       className="py-24 px-6 bg-card border-t text-center overflow-hidden relative"
     >
@@ -55,16 +86,37 @@ export default function FooterSection() {
             </a>
             . All rights reserved. Crafted with Next.js & GSAP.
           </p>
-          <div className="flex gap-6 mt-6 md:mt-0 font-medium">
+          <div className="flex gap-6 mt-6 md:mt-0 font-medium whitespace-nowrap">
             <Link href="/blog" className="hover:text-primary transition-colors">
               Read Blog
             </Link>
-            <Link
-              href="/blog/create"
-              className="hover:text-primary transition-colors"
-            >
-              Author Portal
-            </Link>
+
+            {session ? (
+              <div className="flex items-center gap-6">
+                <Link
+                  href="/blog/create"
+                  className="hover:text-primary transition-colors"
+                >
+                  Create Post
+                </Link>
+                <button
+                  onClick={async () => {
+                    await signOut();
+                    router.refresh();
+                  }}
+                  className="hover:text-red-500 transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4" /> Logout
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="hover:text-primary transition-colors"
+              >
+                Author Portal
+              </Link>
+            )}
           </div>
         </div>
       </div>

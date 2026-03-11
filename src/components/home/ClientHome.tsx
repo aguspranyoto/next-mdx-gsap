@@ -8,7 +8,6 @@ import Hero from "@/components/home/Hero";
 import Services from "@/components/home/Services";
 import Projects from "@/components/home/Projects";
 import TimelineSection from "@/components/home/TimelineSection";
-import FooterSection from "@/components/home/FooterSection";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -169,17 +168,6 @@ export default function ClientHome() {
         ease: "power3.out",
       });
 
-      gsap.from(".footer-element", {
-        scrollTrigger: {
-          trigger: "footer",
-          start: "top 90%",
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-      });
-
       return cleanupHover;
     },
     { scope: container },
@@ -194,7 +182,6 @@ export default function ClientHome() {
       <Services />
       <Projects horizontalRef={horizontalRef} />
       <TimelineSection />
-      <FooterSection />
     </div>
   );
 }

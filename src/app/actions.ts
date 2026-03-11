@@ -2,8 +2,18 @@
 
 import { savePost, updatePost } from "@/lib/blog";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export async function createPostAction(formData: FormData) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+
   const title = formData.get("title")?.toString() || "Untitled";
   const content = formData.get("content")?.toString() || "";
 
@@ -18,6 +28,14 @@ export async function createPostAction(formData: FormData) {
 }
 
 export async function editPostAction(formData: FormData) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+
   const slug = formData.get("slug")?.toString() || "";
   const title = formData.get("title")?.toString() || "Untitled";
   const content = formData.get("content")?.toString() || "";

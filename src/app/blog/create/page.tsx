@@ -1,8 +1,19 @@
 import MarkdownEditor from "@/components/MarkdownEditor";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function CreatePostPage() {
+export default async function CreatePostPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/login");
+  }
+
   return (
     <div className="container mx-auto px-4 py-16 max-w-4xl">
       <Link

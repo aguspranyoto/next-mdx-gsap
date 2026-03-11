@@ -1,8 +1,20 @@
 import fs from "fs";
 import path from "path";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export async function POST(req: Request) {
   try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+      });
+    }
+
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
     if (!file)

@@ -2,13 +2,23 @@ import MarkdownEditor from "@/components/MarkdownEditor";
 import { getPostData } from "@/lib/blog";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export default async function EditPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/login");
+  }
+
   const { slug } = await params;
   const post = getPostData(slug);
 

@@ -42,7 +42,7 @@ export default function Projects({
                   <h4 className="text-4xl md:text-5xl font-bold mb-6">
                     {project.title}
                   </h4>
-                  <p className="text-xl md:text-2xl opacity-70 mb-10 max-w-md leading-relaxed">
+                  <p className="text-lg md:text-xl opacity-70 mb-10 max-w-md leading-relaxed">
                     {project.desc}
                   </p>
                   <Button

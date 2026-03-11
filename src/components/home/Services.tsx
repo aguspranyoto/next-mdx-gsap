@@ -1,14 +1,14 @@
 "use client";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code2, Paintbrush, Rocket, Layers } from "lucide-react";
+import { Code2, Paintbrush, Rocket, Smartphone } from "lucide-react";
 import { services as servicesData } from "@/components/home/data";
 
 const IconMap: Record<string, any> = {
   Code2,
   Paintbrush,
+  Smartphone,
   Rocket,
-  Layers,
 };
 
 export default function Services() {
