@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { projects as projectsData } from "@/components/home/data";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Projects({
   horizontalRef,
@@ -29,13 +30,28 @@ export default function Projects({
               className="horizontal-panel w-screen h-screen flex items-center justify-center p-6 md:p-24 relative"
             >
               <div className="w-full max-w-4xl aspect-21/9 relative flex flex-col md:flex-row items-stretch border border-background/20 rounded-3xl overflow-hidden bg-background/5 backdrop-blur-md">
-                <div
-                  className={`w-full md:w-1/2 h-full bg-linear-to-br transition-colors ${project.color} flex items-center justify-center p-12`}
-                >
-                  <span className="text-9xl font-black opacity-30 drop-shadow-xl">
-                    {project.id}
-                  </span>
-                </div>
+                {project.image === "" ? (
+                  <div
+                    className={`w-full md:w-1/2 h-full bg-linear-to-br transition-colors ${project.color} flex items-center justify-center p-12`}
+                  >
+                    <span className="text-9xl font-black opacity-30 drop-shadow-xl">
+                      {project.id}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="w-full md:w-1/2 h-full">
+                    <div className="size-full">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        width={447}
+                        height={382}
+                        className="object-contain w-full h-full p-6"
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <div className="w-full md:w-1/2 p-12 lg:p-16 flex flex-col justify-center">
                   <div className="mb-4 flex flex-wrap gap-2">
                     {project.tag.map((t, idx) => (
