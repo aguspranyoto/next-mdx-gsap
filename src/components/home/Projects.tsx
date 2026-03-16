@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { projects as projectsData } from "@/components/home/data";
+import Link from "next/link";
 
 export default function Projects({
   horizontalRef,
@@ -36,22 +37,34 @@ export default function Projects({
                   </span>
                 </div>
                 <div className="w-full md:w-1/2 p-12 lg:p-16 flex flex-col justify-center">
-                  <div className="mb-4 inline-flex items-center rounded-full border border-background/30 px-3 py-1 text-xs font-semibold">
-                    {project.tag}
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {project.tag.map((t, idx) => (
+                      <div
+                        key={idx}
+                        className="inline-flex items-center rounded-full border border-background/30 px-3 py-1 text-xs font-semibold"
+                      >
+                        {t}
+                      </div>
+                    ))}
                   </div>
-                  <h4 className="text-4xl md:text-5xl font-bold mb-6">
+                  <h4 className="text-3xl md:text-4xl font-bold mb-6">
                     {project.title}
                   </h4>
-                  <p className="text-lg md:text-xl opacity-70 mb-10 max-w-md leading-relaxed">
+                  <p className="text-md md:text-lg opacity-70 mb-10 max-w-md leading-relaxed">
                     {project.desc}
                   </p>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-fit border-none cursor-pointer bg-foreground text-background hover:bg-background hover:text-foreground rounded-full px-8"
+                  <Link
+                    href={project.link}
+                    target={project.link === "#" ? "_self" : "_blank"}
                   >
-                    View Case Study
-                  </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-fit border-none cursor-pointer bg-foreground text-background hover:bg-background hover:text-foreground rounded-full px-8"
+                    >
+                      View Project
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -59,6 +72,7 @@ export default function Projects({
         </div>
       </section>
 
+      {/* mobile */}
       <section className="py-24 px-6 bg-foreground text-background lg:hidden">
         <div className="mb-12">
           <h2 className="text-sm font-bold tracking-widest uppercase opacity-70 mb-2">
@@ -80,17 +94,29 @@ export default function Projects({
                 </span>
               </div>
               <div className="p-8">
-                <div className="mb-3 inline-flex items-center rounded-full border border-background/30 px-3 py-1 text-xs font-semibold">
-                  {project.tag}
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {project.tag.map((t, idx) => (
+                    <div
+                      key={idx}
+                      className="inline-flex items-center rounded-full border border-background/30 px-3 py-1 text-xs font-semibold"
+                    >
+                      {t}
+                    </div>
+                  ))}
                 </div>
-                <h4 className="text-3xl font-bold mb-4">{project.title}</h4>
+                <h4 className="text-2xl font-bold mb-4">{project.title}</h4>
                 <p className="text-lg opacity-80 mb-6">{project.desc}</p>
-                <Button
-                  variant="outline"
-                  className="w-full border-background text-background hover:bg-background hover:text-foreground rounded-full"
+                <Link
+                  href={project.link}
+                  target={project.link === "#" ? "_self" : "_blank"}
                 >
-                  View Case Study
-                </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full border-background text-background hover:bg-background hover:text-foreground rounded-full"
+                  >
+                    View Project
+                  </Button>
+                </Link>
               </div>
             </div>
           ))}
