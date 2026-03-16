@@ -35,6 +35,7 @@ export const projects = [
       "Shadcn UI",
     ],
     link: "https://forum.agusp.com",
+    image: "/forum.png",
   },
   {
     id: "02",
@@ -43,6 +44,7 @@ export const projects = [
     color: "from-blue-500/20 to-cyan-500/20",
     tag: ["Next.js", "Prisma", "Better Auth", "Shadcn UI"],
     link: "https://task-management.agusp.com",
+    image: "/task-management.png",
   },
   {
     id: "03",
@@ -51,6 +53,7 @@ export const projects = [
     color: "from-blue-500/20 to-cyan-500/20",
     tag: ["Next.js"],
     link: "#",
+    image: "",
   },
   {
     id: "04",
@@ -59,6 +62,7 @@ export const projects = [
     color: "from-blue-500/20 to-cyan-500/20",
     tag: ["Next.js"],
     link: "#",
+    image: "",
   },
 ];
 
