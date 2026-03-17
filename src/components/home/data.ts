@@ -88,6 +88,8 @@ export const timeline = [
     company: "PT Global Indonesia Asia Sejahtera",
     stacks: [
       "Next.js",
+      "Nuxt.js",
+      "Laravel",
       "React Flow",
       "NextAuth",
       "TanStack Table",
@@ -96,7 +98,7 @@ export const timeline = [
       "Shadcn UI",
       "Tailwind CSS",
     ],
-    desc: "Built documentation and profile websites using Next.js 15, React Flow, NextAuth v5, TanStack Table, Prisma, MongoDB, Shadcn UI, and Tailwind CSS with role-based access control. Converted Figma designs to responsive UIs, implemented SPA/SSR patterns, improved production performance, and used Docker (Laradock), Ubuntu, Jira, and Git/GitLab workflows.",
+    desc: "Built documentation and profile websites using Next.js 15, Nuxt.js, Laravel, React Flow, NextAuth v5, TanStack Table, Prisma, MongoDB, Shadcn UI, and Tailwind CSS with role-based access control. Converted Figma designs to responsive UIs, implemented SPA/SSR patterns, improved production performance, and used Docker (Laradock), Ubuntu, Jira, and Git/GitLab workflows.",
   },
   {
     year: "Jan 2024 - Apr 2024",
