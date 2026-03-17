@@ -102,13 +102,27 @@ export default function Projects({
               key={i}
               className="border border-background/20 rounded-3xl overflow-hidden bg-background/5"
             >
-              <div
-                className={`w-full h-48 bg-linear-to-br ${project.color} flex items-center justify-center`}
-              >
-                <span className="text-6xl font-black opacity-30 drop-shadow-xl">
-                  {project.id}
-                </span>
-              </div>
+              {project.image === "" ? (
+                <div
+                  className={`w-full bg-linear-to-br transition-colors ${project.color} flex items-center justify-center p-12`}
+                >
+                  <span className="text-9xl font-black opacity-30 drop-shadow-xl">
+                    {project.id}
+                  </span>
+                </div>
+              ) : (
+                <div className="w-full">
+                  <div className="size-full">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      width={447}
+                      height={382}
+                      className="object-contain w-full h-full p-6"
+                    />
+                  </div>
+                </div>
+              )}
               <div className="p-8">
                 <div className="mb-3 flex flex-wrap gap-2">
                   {project.tag.map((t, idx) => (
@@ -128,7 +142,8 @@ export default function Projects({
                 >
                   <Button
                     variant="outline"
-                    className="w-full border-background text-background hover:bg-background hover:text-foreground rounded-full"
+                    size="lg"
+                    className="w-full border-none cursor-pointer bg-background text-foreground hover:bg-foreground hover:text-background rounded-full px-8"
                   >
                     View Project
                   </Button>
